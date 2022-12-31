@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+    nginx-exporter:
+      image: nginx/nginx-prometheus-exporter:0.4.2
+      #ports:
+      #  - 9113
+      command:
+        - -nginx.scrape-uri
+        - http://nginx:8080/stub_status
+
+networks:
+    default:
+        external:
+            name: vnet

@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+    grafana:
+      image: grafana/grafana
+      ports:
+        - 4000:3000
+      environment:
+        - GF_SERVER_ROOT_URL=http://0.0.0.0:3000
+        - GF_SECURITY_ADMIN_PASSWORD=ds_secret
+      volumes:
+#        - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+        - ./grafana-storage:/var/lib/grafana
+
+networks:
+  default:
+    external:
+      name: vnet
