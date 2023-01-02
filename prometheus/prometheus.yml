@@ -1,39 +1,38 @@
 global:
-  scrape_interval:     10s
+  scrape_interval: 10s
   evaluation_interval: 15s
-  
-
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-          - alertmanager:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  - "test_rules.yml"
+  - "alert.rules"
 # - "second_rules.yml"
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "alertmanager:9093"
 
 scrape_configs:
-#  - job_name: "prometheus_master"
- #   scrape_interval: 5s
+  #  - job_name: "prometheus_master"
+  #   scrape_interval: 5s
   #  static_configs:
-   #   - targets: ["prometheus:9090"]
-  - job_name: 'nginx_status'
+  #   - targets: ["prometheus:9090"]
+  - job_name: "nginx_status"
     scrape_interval: 1m
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
     static_configs:
-      - targets: ['nginx-exporter:9113']
-  - job_name: 'pushGateWay'
+      - targets: ["nginx-exporter:9113"]
+  - job_name: "pushGateWay"
     scrape_interval: 1m
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
     static_configs:
-      - targets: ['pushgateway:9191']
+      - targets: ["pushgateway:9191"]
   - job_name: pm2-metrics
     scrape_interval: 10s
     scrape_timeout: 10s
     metrics_path: /metrics
     scheme: http
     static_configs:
-      - targets: ['app:9209']
+      - targets: ["app:9209"]

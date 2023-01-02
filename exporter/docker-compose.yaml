@@ -6,6 +6,13 @@ services:
       #  - 9113
       command:
         - -nginx.scrape-uri
+        # ip and port are comes from nginx config 
+        #     server {
+        #     listen 8001;
+        #     location /stub_status {
+        #         stub_status;
+        #     }
+        # }
         - http://nginx:8080/stub_status
 
 networks:
