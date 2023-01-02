@@ -6,10 +6,10 @@ services:
     ports:
       - "9093:9093"
     volumes:
-      - "./alertmanager:/config"
+      - "./alertmanager/:/etc/alertmanager"
       - "./alertmanager-data:/data"
     command:
-      - '--config.file=/config/config.yml'
+      - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
 networks:
   default:
