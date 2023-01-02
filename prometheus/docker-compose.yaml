@@ -8,6 +8,7 @@ services:
         volumes:
            - ./data:/prometheus-data
            - ./prometheus.yml:/etc/prometheus/prometheus.yml
+        command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
 
 networks:
   default:
