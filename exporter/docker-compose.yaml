@@ -16,6 +16,6 @@ services:
         - http://nginx:8080/stub_status
 
 networks:
-    default:
-        external:
-            name: vnet
+  default:
+    name: vnet
+    external: true

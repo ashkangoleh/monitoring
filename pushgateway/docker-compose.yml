@@ -10,6 +10,6 @@ services:
         - 9191:9191
 
 networks:
-    default:
-      external:
-          name: vnet
+  default:
+    name: vnet
+    external: true

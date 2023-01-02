@@ -14,5 +14,5 @@ services:
 
 networks:
   default:
-    external:
-      name: vnet
+    name: vnet
+    external: true
