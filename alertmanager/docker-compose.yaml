@@ -2,13 +2,14 @@ version: '3.8'
 services:
   alertmanager:
     image: prom/alertmanager:latest
+    restart: unless-stopped
     ports:
-      - 9093:9093
+      - "9093:9093"
     volumes:
-      - ./:/etc/alertmanager/
-    restart: always
+      - "./alertmanager:/config"
+      - "./alertmanager-data:/data"
     command:
-      - '--config.file=/etc/alertmanager/config.yml'
+      - '--config.file=/config/config.yml'
       - '--storage.path=/alertmanager'
 networks:
   default:
