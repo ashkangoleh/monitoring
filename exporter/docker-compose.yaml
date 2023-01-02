@@ -13,7 +13,7 @@ services:
         #         stub_status;
         #     }
         # }
-        - http://nginx:8080/stub_status
+        - http://nginx:8001/stub_status
 
 networks:
   default:
