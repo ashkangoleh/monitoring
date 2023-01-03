@@ -15,10 +15,10 @@ alerting:
             - "alertmanager:9093"
 
 scrape_configs:
-  #  - job_name: "prometheus_master"
-  #   scrape_interval: 5s
-  #  static_configs:
-  #   - targets: ["prometheus:9090"]
+  - job_name: "prometheus_master"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["prometheus:9090"]
   - job_name: "nginx_status"
     scrape_interval: 1m
     metrics_path: "/metrics"
