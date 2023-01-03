@@ -9,7 +9,7 @@ services:
         - GF_SERVER_ROOT_URL=http://0.0.0.0:3000
         - GF_SECURITY_ADMIN_PASSWORD=ds_secret
       volumes:
-#        - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+        - ./grafana.ini:/etc/grafana/grafana.ini
         - ./grafana-storage:/var/lib/grafana
 
 networks:
