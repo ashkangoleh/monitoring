@@ -2,13 +2,15 @@ version: "3.8"
 
 services:
     prometheus:
-        image: prom/prometheus
-        ports:
+         image: prom/prometheus
+         ports:
            - "9990:9090"
-        volumes:
+         volumes:
            - ./data:/prometheus-data
            - ./prometheus.yml:/etc/prometheus/prometheus.yml
-        command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+         command:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus"
 
 networks:
   default:

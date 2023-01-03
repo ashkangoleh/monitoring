@@ -11,7 +11,7 @@ services:
       volumes:
         - ./grafana.ini:/etc/grafana/grafana.ini
         - ./grafana-storage:/var/lib/grafana
-
+      user: '104'
 networks:
   default:
     name: vnet
