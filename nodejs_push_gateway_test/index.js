@@ -7,8 +7,13 @@ const counter = new client.Counter({
   help: "test counter",
   labelNames: ["status"],
 });
-
+const counterGauge = new client.Gauge({
+  name: "test_gauge",
+  help: "test gauge",
+  labelNames: ["status"],
+});
 register.registerMetric(counter);
+register.registerMetric(counterGauge);
 
 register.setDefaultLabels({
   app: "test",
@@ -20,14 +25,19 @@ const tags = {
   appName: "ashkan",
 };
 
+const counter_test = async () => {
+  const randomNumber = Math.floor(Math.random() * 51);
+  if (randomNumber <= 20) {
+    counter.inc({ status: "success" }, 1);
+    counterGauge.inc({ status: "success" }, 1);
+  } else if (randomNumber >= 20) {
+    counter.inc({ status: "failed" });
+    counterGauge.dec({ status: "failed" }, 1);
+  }
+};
+
 setInterval(() => {
-  (async () => {
-    if (Math.random() < 10) {
-      counter.inc(1, { status: "success" });
-    } else {
-      counter.inc(1, { status: "failed" });
-    }
-  })();
+  counter_test();
   pushGateWay.pushAdd(tags, (err) => {
     if (err) {
       console.log("error dad!");

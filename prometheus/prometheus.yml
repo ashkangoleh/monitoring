@@ -36,3 +36,10 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets: ["app:9209"]
+  - job_name: app-metrics
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets: ["app:8000"]
