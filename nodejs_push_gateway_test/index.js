@@ -18,7 +18,11 @@ register.registerMetric(counterGauge);
 register.setDefaultLabels({
   app: "test",
 });
-const pushGateWay = new client.Pushgateway("http://arz.local:9191", {});
+const pushGateWay = new client.Pushgateway(
+  "http://arz.local:9191",
+  {},
+  register
+);
 
 const tags = {
   jobName: "ashkan",
@@ -32,7 +36,7 @@ const counter_test = async () => {
     counterGauge.inc({ status: "success" }, 1);
   } else if (randomNumber >= 20) {
     counter.inc({ status: "failed" });
-    counterGauge.dec({ status: "failed" }, 1);
+    counterGauge.inc({ status: "failed" }, 1);
   }
 };
 
@@ -44,3 +48,20 @@ setInterval(() => {
     }
   });
 }, 1000);
+
+class x {
+  constructor(time) {
+    this.time = time;
+    this.register = new client.Registry();
+    this.counter = new client.Counter();
+    this.gateway = new client.Pushgateway();
+    setInterval(() => {
+      counter_test();
+      this.gateway.pushAdd(tags, (err) => {
+        if (err) {
+          console.log("error dad!");
+        }
+      });
+    }, this.time);
+  }
+}
