@@ -11,7 +11,11 @@ services:
       volumes:
         - ./grafana.ini:/etc/grafana/grafana.ini
         - ./grafana-storage:/var/lib/grafana
+<<<<<<< HEAD
       user: '104'
+=======
+      user: '472'
+>>>>>>> 9c5794e (	modified:   docker-compose.yaml)
 networks:
   default:
     name: vnet
