@@ -7,16 +7,16 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./loki-config.yaml:/etc/loki/loki-config.yaml
-      - ./loki/data:/data/loki
-    command: -config.file=/etc/loki/loki-config.yaml
+      - "./loki-config.yaml:/etc/loki/config.yaml:ro"
+      - "./loki/data:/loki"
+    command: -config.file=/etc/loki/config.yaml
 
   promtail:
     image: grafana/promtail:2.6.1
     restart: unless-stopped
     volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - ./promtail-config.yaml:/etc/promtail/promtail-config.yaml
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
+      - "./promtail-config.yaml:/etc/promtail/config.yaml"
     command: -config.file=/etc/promtail/config.yml
 
   grafana:
