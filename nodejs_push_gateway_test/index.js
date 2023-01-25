@@ -2,7 +2,7 @@ import client from "prom-client";
 import winston from "winston";
 
 const logger = winston.createLogger({
-  level: "info",
+  level: "error",
   format: winston.format.combine(
     
     winston.format.timestamp({
@@ -12,7 +12,7 @@ const logger = winston.createLogger({
   defaultMeta: { service: "PushGateWay" },
   transports: [
     new winston.transports.Console(),
-    // new winston.transports.File({ filename: "error.log", level: "error" }),
+    new winston.transports.File({ filename: "error.log", level: "error" }),
     // new winston.transports.File({ filename: "info.log", level: "info" }),
     // new winston.transports.File({ filename: "debug.log", level: "debug" }),
     // new winston.transports.File({ filename: "warn.log", level: "warn" }),
@@ -53,7 +53,9 @@ const tags = {
 const counter_test = async () => {
   const randomNumber = Math.floor(Math.random() * 51);
   if (randomNumber <= 30) {
-    logger.info(`${randomNumber}`);
+    logger.info({
+      data:`${randomNumber}`
+    });
     counter.inc({ status: "success" }, 1);
     counterGauge.inc({ status: "success" }, 1);
   } else if (randomNumber > 30) {
