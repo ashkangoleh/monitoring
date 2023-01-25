@@ -43,3 +43,10 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets: ["app:8000"]
+  - job_name: chatgpt-metrics
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets: ["192.168.3.95:8000"]
