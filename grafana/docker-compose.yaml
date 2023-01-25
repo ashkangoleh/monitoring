@@ -3,14 +3,20 @@ version: "3.8"
 services:
   loki:
     image: grafana/loki:2.6.1
+    restart: unless-stopped
     ports:
       - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+      - ./loki/data:/data/loki
+    command: -config.file=/etc/loki/loki-config.yaml
 
   promtail:
     image: grafana/promtail:2.6.1
+    restart: unless-stopped
     volumes:
-      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./promtail-config.yaml:/etc/promtail/promtail-config.yaml
     command: -config.file=/etc/promtail/config.yml
 
   grafana:
@@ -23,7 +29,7 @@ services:
     volumes:
       - ./grafana.ini:/etc/grafana/grafana.ini
       - ./grafana-storage:/var/lib/grafana
-    user: '472'
+    user: "472"
 
 networks:
   default:
